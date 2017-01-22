@@ -80,12 +80,24 @@ func (api AmazonProductAPI) ItemSearchByKeyword(Keywords string, page int) (stri
 	return api.ItemSearch("All", params)
 }
 
-func (api AmazonProductAPI) ItemSearchByKeywordWithResponseGroup(Keywords string, ResponseGroup string) (string, error) {
+// Modifed
+func (api AmazonProductAPI) ItemSearchByKeywordWithResponseGroup(Keywords string, ResponseGroup string, page int) (string, error) {
 	params := map[string]string{
 		"Keywords":      Keywords,
 		"ResponseGroup": ResponseGroup,
+		"ItemPage":      strconv.FormatInt(int64(page), 10),
 	}
 	return api.ItemSearch("All", params)
+}
+
+// Added new
+func (api AmazonProductAPI) ItemSearchByKeywordWithResponseGroupWithSearchIndex(Keywords string, ResponseGroup string, SearchIndex string, page int) (string, error) {
+	params := map[string]string{
+		"Keywords":      Keywords,
+		"ResponseGroup": ResponseGroup,
+		"ItemPage":      strconv.FormatInt(int64(page), 10),
+	}
+	return api.ItemSearch(SearchIndex, params)
 }
 
 func (api AmazonProductAPI) ItemSearch(SearchIndex string, Parameters map[string]string) (string, error) {
